@@ -12,20 +12,20 @@ class Tobacco(PolymorphicModel):
     rel_date = models.DateTimeField(blank=True)
     nicotine =  models.FloatField()
     TAR = models.FloatField()
-    is_menthol = models.BooleanField()
-    score = models.FloatField()
+    feel_of_hit = models.CharField(max_length=10)
+    score = models.FloatField(default=0)
     total_like = models.PositiveIntegerField(default=0)
-    like_user = models.ManyToManyField(Profile, null=True)
+    like_user = models.ManyToManyField(Profile)
 
     def __str__(self):
         return self.brand+self.name
 
     class Meta:
-        # abstract = True
         ordering = ['-rel_date']
 
 class Cigarettes(Tobacco):
     is_local = models.BooleanField()
+    is_menthol = models.BooleanField()
 
 class ElecCigarettes(Tobacco):
     c_type = models.CharField(max_length=20)
@@ -34,6 +34,7 @@ class Comment(models.Model):
     belongs_to_user = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True)
     belongs_to_tobacco = models.ForeignKey(Tobacco, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
+    feel_of_hit = models.CharField(max_length=10)
     score = models.PositiveIntegerField(default=3)
     content = models.TextField()
 
