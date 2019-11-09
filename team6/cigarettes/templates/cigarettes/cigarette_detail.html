@@ -16,3 +16,15 @@
 {% else %}
     전자담배 종류 : {{ tobacco.c_type }} <br>
 {% endif %}
+
+<h2> Comment </h2>
+{% for comment in comment_list %}
+    작성자 : {{ comment.belongs_to_user.nickname }}<br>
+    타격감 : {{comment.feel_of_hit}}<br>
+    별점 : {{comment.score}}<br>
+    내용 : {{comment.content}}<br>
+    <hr>
+{% endfor %} 
+<a href="{% url 'cigarettes:comment' tobacco.id %}">댓글작성</a>
+<br><br>
+<a href="{% url 'cigarettes:index' %}">Home</a>
