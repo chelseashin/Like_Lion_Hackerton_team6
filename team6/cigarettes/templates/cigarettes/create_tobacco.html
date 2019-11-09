@@ -29,7 +29,7 @@
 
     {% else %}
         <h1>Update Cigarette</h1>
-        <form method="POST" action="{% url 'cigarettes:create_cigarette' %}">
+        <form method="POST" action="{% url 'cigarettes:update_cigarette' edit_cigarette.id %}">
             {% csrf_token %}
             <br>
             <input type="radio" name="is_local" value=True>국내판매 제품
