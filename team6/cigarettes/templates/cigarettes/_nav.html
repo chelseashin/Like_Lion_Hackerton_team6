@@ -76,8 +76,12 @@ label:hover{
   <ul>
     <li><a href="{% url 'cigarettes:index' %}">cigarettes</a></li>
     {% if user.is_authenticated %}
-        <li><a href="{% url 'accounts:mypage' profile.id %}">mypage</a></li>
-        <li><a href="{% url 'accounts:logout' %}">logout</a></li> 
+        {% if user.is_superuser %}
+          <li><a href="{% url 'accounts:logout' %}">logout</a></li> 
+        {% else %}
+          <li><a href="{% url 'accounts:logout' %}">logout</a></li> 
+          {% comment %} <li><a href="{% url 'accounts:mypage' profile.id %}">mypage</a></li> {% endcomment %}
+        {% endif %}
     {% else %}
         <li><a href="{% url 'accounts:login' %}">login</a></li>
         <li><a href="{% url 'accounts:signup' %}">signup</a></li>

@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from cigarettes.models import Tobacco, Cigarettes, ElecCigarettes, Comment 
 from accounts.models import Profile
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
@@ -15,6 +16,10 @@ def index(request):
         user = request.user
         profile = Profile.objects.get(user = user)
         context = {'tobacco':tobacco, 'profile':profile}
+        # if Profile.objects.filter(user = user) is None:
+            
+
+        # context = {'tobacco':tobacco}
         return render(request, 'cigarettes/index.html', context)
 
 def detail(request, cigarette_id):
@@ -170,7 +175,7 @@ def update_cigarette(request, update_cigarette_id):
     cigarette.is_menthol = request.POST.get('is_menthol')
     cigarette.save()
 
-    return redirect('/detail/'+ str(update_cigarette_id))
+    return redirect('/detail/'+ str(update_cigarette_id)+'/')
 
 
 def edit_elec_cigarette(request, edit_elec_cigarette_id):
@@ -193,4 +198,4 @@ def update_elec_cigarette(request, update_elec_cigarette_id):
     elec_cigarette.rel_date = request.POST.get('rel_date')
     elec_cigarette.save()
 
-    return redirect('/detail/'+ str(update_cigarette_id))
+    return redirect('/detail/'+ str(update_cigarette_id)+'/')

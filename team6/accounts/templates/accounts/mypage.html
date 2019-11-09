@@ -1,1 +1,26 @@
-mypage
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    h1 {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.75rem;
+            font-family: 'Jua', sans-serif;
+        }
+
+    p, h2 {
+        font-family: 'Do Hyeon', sans-serif;
+    }
+
+
+</style>
+<h1>My Page</h1>
+<hr>
+<p>{{ user.username }}님의 회원 정보</p>
+<p>E-mail : {{ user.profile.email }}</p>
+<p>Nickname : {{ user.profile.nickname }}</p>
+<hr>
+<h2>내가 좋아한 담배 보기</h2>
+{% endblock %}
