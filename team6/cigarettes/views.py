@@ -6,7 +6,8 @@ from accounts.models import Profile
 
 # Create your views here.
 def index(request):
-    return render(request, 'cigarettes/index.html')
+    tobacco = Tobacco.objects.all()
+    return render(request, 'cigarettes/index.html', {"tobacco":tobacco})
 
 def detail(request, cigarette_id):
     tobacco = get_object_or_404(Tobacco, pk = cigarette_id)
@@ -15,22 +16,23 @@ def detail(request, cigarette_id):
     foh_dict = {'상':0,'중':0,'하':0}
     score = 0
 
-    for comment in comment_list:
-        score += comment.score 
-        if comment.feel_of_hit == '상':
-            foh_dict['상'] += 1
-        elif comment.feel_of_hit == '중':
-            foh_dict['중'] += 1
-        else:
-            foh_dict['하'] += 1
-    
-    tobacco.score = score / len(comment_list)
+    if not len(comment_list) == 0:
+        for comment in comment_list:
+            score += comment.score 
+            if comment.feel_of_hit == '상':
+                foh_dict['상'] += 1
+            elif comment.feel_of_hit == '중':
+                foh_dict['중'] += 1
+            else:
+                foh_dict['하'] += 1
+        
+        tobacco.score = score / len(comment_list)
 
-    if (foh_dict['상'] > foh_dict['중']) and (foh_dict['상'] > foh_dict['하']):
-        tobacco.feel_of_hit = '상'
-    elif (foh_dict['하'] > foh_dict['중']) and (foh_dict['하'] > foh_dict['상']):
-        tobacco.feel_of_hit = '하'
-    else: tobacco.feel_of_hit = '중'
+        if (foh_dict['상'] > foh_dict['중']) and (foh_dict['상'] > foh_dict['하']):
+            tobacco.feel_of_hit = '상'
+        elif (foh_dict['하'] > foh_dict['중']) and (foh_dict['하'] > foh_dict['상']):
+            tobacco.feel_of_hit = '하'
+        else: tobacco.feel_of_hit = '중'
 
     tobacco.save()
 
