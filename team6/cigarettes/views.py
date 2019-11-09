@@ -150,17 +150,17 @@ def edit_cigarette(request, edit_cigarette_id):
     return render(request, 'cigarettes/create_tobacco.html', context)
 
 
-# def update_cigarette(request, update_cigarette_id):
-#     cigarette = Cigarettes()
-#     cigarette.is_local = request.POST.get('is_local')
-#     cigarette.brand = request.POST.get('brand')
-#     cigarette.name = request.POST.get('name')
-#     cigarette.price = request.POST.get('price')
-#     cigarette.TAR = request.POST.get('tar')
-#     cigarette.nicotine = request.POST.get('nicotine')
-#     cigarette.rel_date = request.POST.get('rel_date')
-#     cigarette.is_menthol = request.POST.get('is_menthol')
-#     cigarette.save()
+def update_cigarette(request, update_cigarette_id):
+    cigarette = get_object_or_404(Tobacco, pk=update_cigarette_id)
+    cigarette.is_local = request.POST.get('is_local')
+    cigarette.brand = request.POST.get('brand')
+    cigarette.name = request.POST.get('name')
+    cigarette.price = request.POST.get('price')
+    cigarette.TAR = request.POST.get('tar')
+    cigarette.nicotine = request.POST.get('nicotine')
+    cigarette.rel_date = request.POST.get('rel_date')
+    cigarette.is_menthol = request.POST.get('is_menthol')
+    cigarette.save()
 
-#     #return redirect('//' +str(new_post.id))
-#     return redirect('cigarettes:index')
+    #return redirect('//' +str(new_post.id))
+    return redirect('/detail/'+ str(update_cigarette_id))

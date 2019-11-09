@@ -1,7 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+h1 {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.75rem;
+    font-family: 'Jua', sans-serif;
+}
+
+p {
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+form {
+    justify-content: center;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+input {
+    width: 100%;
+}
+
+.signup, .login {
+    width: 100%;
+    padding: .8em 0 10px .8em;
+    background-color: #28A55F;
+    border: none;
+    color:  white;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+</style>
 
 {% ifequal auth_mode 'signup' %}
 
         <h1>Sign up</h1>
+        <hr>
+        <p>담배를 좋아하는 여러분,<br>
+            만나서 반갑습니다.<br>
+            CigaReco의 회원이 되어주세요!</p>
         <form method="POST" action="{% url 'accounts:signup' %}">
             {% csrf_token %}
             Username : 
@@ -24,12 +63,16 @@
             <br>
             <input type="text" name="email" value="">
             <br>
-            <input type="submit" value="Signup">
+            <br>
+            <input class="signup" type="submit" value="Signup">
         </form>
 
     {% else %}
 
         <h1>Login</h1>
+        <hr>
+        <p>더 많은 서비스를 이용하시려면<br>
+             로그인 해주세요!</p>
         <form method="POST" action="{% url 'accounts:login' %}">
             {% csrf_token %}
             Username : 
@@ -40,7 +83,10 @@
             <br>
             <input type="password" name="password" value="">
             <br>
-            <input type="submit" value="Login">
+            <br>
+            <input class="login" type="submit" value="Login">
         </form>
 
     {% endifequal %}
+
+{% endblock %}
