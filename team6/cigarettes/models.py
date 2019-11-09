@@ -9,10 +9,10 @@ class Tobacco(PolymorphicModel):
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     price = models.CharField(max_length=10)
-    rel_date = models.DateTimeField(blank=True)
+    rel_date = models.CharField(max_length=20, blank=True)
     nicotine =  models.FloatField()
     TAR = models.FloatField()
-    feel_of_hit = models.CharField(max_length=10)
+    feel_of_hit = models.CharField(max_length=10, default='중')
     score = models.FloatField(default=0)
     total_like = models.PositiveIntegerField(default=0)
     like_user = models.ManyToManyField(Profile)
@@ -25,7 +25,7 @@ class Tobacco(PolymorphicModel):
 
 class Cigarettes(Tobacco):
     is_local = models.BooleanField()
-    is_menthol = models.BooleanField()
+    is_menthol = models.BooleanField(default=False)
 
 class ElecCigarettes(Tobacco):
     c_type = models.CharField(max_length=20)
@@ -44,7 +44,7 @@ class Request(models.Model):
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     price = models.CharField(max_length=10)
-    rel_date = models.DateTimeField(blank=True)
+    rel_date = models.CharField(max_length=20, blank=True)
     nicotine =  models.FloatField(blank=True)
     TAR = models.FloatField(blank=True)
     is_menthol = models.BooleanField(blank=True)

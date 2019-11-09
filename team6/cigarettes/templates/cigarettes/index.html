@@ -2,13 +2,14 @@
 {% block content %}        
 <h3>Cigarettes's Index</h3>
 <hr>
-{% if user.is_authenticated %}
-    <p>{{ user.username }}님 반갑습니다</p>
-    <p>E-mail : {{ user.profile.email }}</p>
-    <p>Nickname : {{ user.profile.nickname }}</p>
-
-{% else %}
-    <p>로그인해주세요!</p>
-{% endif %}
-
+  {% if user.is_authenticated %}
+      <p>{{ user.username }}님 반갑습니다</p>
+      <p>E-mail : {{ user.profile.email }}</p>
+      <p>Nickname : {{ user.profile.nickname }}</p>
+      <a href="{% url 'cigarettes:new_cigarette' %}">연초 추가</a>
+      <a href="{% url 'cigarettes:new_elec_cigarette' %}">전자담배 추가</a>
+  {% else %}
+      <a href="{% url 'accounts:signup'%}">Signup</a>
+      <a href="{% url 'accounts:login'%}">Login</a>
+  {% endif %}
 {% endblock %}
