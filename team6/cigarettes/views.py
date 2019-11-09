@@ -145,4 +145,21 @@ def edit_cigarette(request, edit_cigarette_id):
     tobacco_type = "cigarette"
     edit_cigarette = get_object_or_404(Tobacco, pk=edit_cigarette_id)
     context = {'tobacco_type' : tobacco_type, 'edit_cigarette' : edit_cigarette, 'mode' : mode}
+
     return render(request, 'cigarettes/create_tobacco.html', context)
+
+
+# def update_cigarette(request, update_cigarette_id):
+#     cigarette = Cigarettes()
+#     cigarette.is_local = request.POST.get('is_local')
+#     cigarette.brand = request.POST.get('brand')
+#     cigarette.name = request.POST.get('name')
+#     cigarette.price = request.POST.get('price')
+#     cigarette.TAR = request.POST.get('tar')
+#     cigarette.nicotine = request.POST.get('nicotine')
+#     cigarette.rel_date = request.POST.get('rel_date')
+#     cigarette.is_menthol = request.POST.get('is_menthol')
+#     cigarette.save()
+
+#     #return redirect('//' +str(new_post.id))
+#     return redirect('cigarettes:index')
