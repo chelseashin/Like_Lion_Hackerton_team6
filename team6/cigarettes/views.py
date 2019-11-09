@@ -30,3 +30,9 @@ def like(request, tobacco_id):
         tobacco.save()
 
     return redirect('tobacco:detail', tobacco_id)
+
+def new_cigarette(request):
+    return render(request, 'cigarettes/create_tobacco.html')
+
+def create_cigarette(request):
+    return render(request, 'cigarettes/create_tobacco.html')
