@@ -1,14 +1,18 @@
+{% extends 'base.html' %}        
+{% block content %}        
 
+    {% if user.is_authenticated %}
+        <form id="logout" method ="POST" action="{% url 'accounts:logout' %}">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+        </form>
+    {% else %}
+        <a href="{% url 'accounts:signup'%}">Signup</a>
+        <a href="{% url 'accounts:login'%}">Login</a>
+    {% endif %}
 
-{% if user.is_authenticated %}
-    <form id="logout" method ="POST" action="{% url 'accounts:logout' %}">
-        {% csrf_token %}
-        <input type="submit" value="Logout">
-    </form>
-{% else %}
-    <a href="{% url 'accounts:signup'%}">Signup</a>
-    <a href="{% url 'accounts:login'%}">Login</a>
-{% endif %}
+    <h1>구름 쪼아</h1>
 
-<h1>구름 쪼아</h1>
+{% endblock %}
+
 
