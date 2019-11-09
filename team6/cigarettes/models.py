@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils import timezone
 from accounts.models import Profile
+from polymorphic.models import PolymorphicModel
 
 # Create your models here.
 
-class Tobacco(models.Model):
+class Tobacco(PolymorphicModel):
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     price = models.CharField(max_length=10)
@@ -20,7 +21,7 @@ class Tobacco(models.Model):
         return self.brand+self.name
 
     class Meta:
-        abstract = True
+        # abstract = True
         ordering = ['-rel_date']
 
 class Cigarettes(Tobacco):
