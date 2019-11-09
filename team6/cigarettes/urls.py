@@ -13,5 +13,7 @@ urlpatterns = [
     path('createCigarette/', views.create_cigarette, name="create_cigarette"),
     path('createElecCigarette/', views.create_elec_cigarette, name="create_elec_cigarette"),
     path('editCigarette/<int:edit_cigarette_id>', views.edit_cigarette, name="edit_cigarette"),
+    path('editElecCigarette/<int:edit_elec_cigarette_id>', views.edit_elec_cigarette, name="edit_elec_cigarette"),
     path('updateCigarette/<int:update_cigarette_id>', views.update_cigarette, name="update_cigarette"),
+    path('updateElecCigarette/<int:update_elec_cigarette_id>', views.update_elec_cigarette, name="update_elec_cigarette"),
 ]

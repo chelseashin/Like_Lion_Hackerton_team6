@@ -103,14 +103,21 @@ def comment(request, cigarette_id):
 def new_cigarette(request):
     mode = "create"
     tobacco_type = "cigarette"
-    context = {'tobacco_type' : tobacco_type, 'mode' : mode}
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    context = {'tobacco_type' : tobacco_type, 'mode' : mode, 'profile':profile}
     return render(request, 'cigarettes/create_tobacco.html', context)
 
 def new_elec_cigarette(request):
+    mode = "create"
     tobacco_type = "elec_cigarette"
-    return render(request, 'cigarettes/create_tobacco.html', {'tobacco_type' : tobacco_type})
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    context = {'tobacco_type' : tobacco_type, 'mode' : mode, 'profile':profile}
+    return render(request, 'cigarettes/create_tobacco.html', context)
 
 def create_cigarette(request):
+    
     cigarette = Cigarettes()
     cigarette.is_local = request.POST.get('is_local')
     cigarette.brand = request.POST.get('brand')
@@ -131,6 +138,7 @@ def create_elec_cigarette(request):
     elec_cigarette.c_type = request.POST.get('c_type')
     elec_cigarette.brand = request.POST.get('brand')
     elec_cigarette.name = request.POST.get('name')
+    elec_cigarette.photo = request.FILES.get('photo')
     elec_cigarette.price = request.POST.get('price')
     elec_cigarette.TAR = request.POST.get('tar')
     elec_cigarette.nicotine = request.POST.get('nicotine')
@@ -162,5 +170,27 @@ def update_cigarette(request, update_cigarette_id):
     cigarette.is_menthol = request.POST.get('is_menthol')
     cigarette.save()
 
-    #return redirect('//' +str(new_post.id))
+    return redirect('/detail/'+ str(update_cigarette_id))
+
+
+def edit_elec_cigarette(request, edit_elec_cigarette_id):
+    mode = "update"
+    tobacco_type = "elec_cigarette"
+    edit_cigarette = get_object_or_404(Tobacco, pk=edit_elec_cigarette_id)
+    context = {'tobacco_type' : tobacco_type, 'edit_elec_cigarette' : edit_elec_cigarette, 'mode' : mode}
+
+    return render(request, 'cigarettes/create_tobacco.html', context)
+
+
+def update_elec_cigarette(request, update_elec_cigarette_id):
+    elec_cigarette = get_object_or_404(Tobacco, pk=update_elec_cigarette_id)
+    elec_cigarette.c_type = request.POST.get('c_type')
+    elec_cigarette.brand = request.POST.get('brand')
+    elec_cigarette.name = request.POST.get('name')
+    elec_cigarette.price = request.POST.get('price')
+    elec_cigarette.TAR = request.POST.get('tar')
+    elec_cigarette.nicotine = request.POST.get('nicotine')
+    elec_cigarette.rel_date = request.POST.get('rel_date')
+    elec_cigarette.save()
+
     return redirect('/detail/'+ str(update_cigarette_id))
