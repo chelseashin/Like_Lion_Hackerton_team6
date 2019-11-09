@@ -6,9 +6,10 @@
             {% csrf_token %}
             <input type="submit" value="Logout">
         </form>
+        <a href="{% url 'accounts:mypage' profile.id  %}">MyPage</a>
         <a href="{% url 'cigarettes:new_cigarette' %}">연초 추가</a>
         <a href="{% url 'cigarettes:new_elec_cigarette' %}">전자담배 추가</a>
-        <a href=""></a>
+        
     {% else %}
         <a href="{% url 'accounts:signup'%}">Signup</a>
         <a href="{% url 'accounts:login'%}">Login</a>
