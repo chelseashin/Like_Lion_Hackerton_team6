@@ -2,12 +2,15 @@ from django.db import models
 from django.utils import timezone
 from accounts.models import Profile
 from polymorphic.models import PolymorphicModel
+from easy_thumbnails.fields import ThumbnailerImageField
 
 # Create your models here.
 
 class Tobacco(PolymorphicModel):
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
+    photo = models.ImageField(upload_to='media/img', blank=True, null=True)
+    thumbnail = ThumbnailerImageField(upload_to='media/cigarette', blank=True)
     price = models.CharField(max_length=10)
     rel_date = models.CharField(max_length=20, blank=True)
     nicotine =  models.FloatField()
