@@ -7,7 +7,10 @@ from accounts.models import Profile
 # Create your views here.
 def index(request):
     tobacco = Tobacco.objects.all()
-    return render(request, 'cigarettes/index.html', {"tobacco":tobacco})
+    user = request.user
+    profile = Profile.objects.get(user = user)
+    context = {'tobacco':tobacco, 'profile':profile}
+    return render(request, 'cigarettes/index.html', context)
 
 def detail(request, cigarette_id):
     tobacco = get_object_or_404(Tobacco, pk = cigarette_id)
