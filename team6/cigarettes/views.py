@@ -6,11 +6,16 @@ from accounts.models import Profile
 
 # Create your views here.
 def index(request):
-    tobacco = Tobacco.objects.all()
-    user = request.user
-    profile = Profile.objects.get(user = user)
-    context = {'tobacco':tobacco, 'profile':profile}
-    return render(request, 'cigarettes/index.html', context)
+    if request.user.is_anonymous:
+        tobacco = Tobacco.objects.all()
+        context = {'tobacco':tobacco}
+        return render(request, 'cigarettes/index.html', context)    
+    else:
+        tobacco = Tobacco.objects.all()
+        user = request.user
+        profile = Profile.objects.get(user = user)
+        context = {'tobacco':tobacco, 'profile':profile}
+        return render(request, 'cigarettes/index.html', context)
 
 def detail(request, cigarette_id):
     tobacco = get_object_or_404(Tobacco, pk = cigarette_id)
@@ -96,8 +101,10 @@ def comment(request, cigarette_id):
     return redirect('tobacco:detail', cigarette_id)
 
 def new_cigarette(request):
+    mode = "create"
     tobacco_type = "cigarette"
-    return render(request, 'cigarettes/create_tobacco.html', {'tobacco_type' : tobacco_type})
+    context = {'tobacco_type' : tobacco_type, 'mode' : mode}
+    return render(request, 'cigarettes/create_tobacco.html', context)
 
 def new_elec_cigarette(request):
     tobacco_type = "elec_cigarette"
@@ -132,3 +139,10 @@ def create_elec_cigarette(request):
 
     #return redirect('//' +str(new_post.id))
     return redirect('cigarettes:index')
+
+def edit_cigarette(request, edit_cigarette_id):
+    mode = "update"
+    tobacco_type = "cigarette"
+    edit_cigarette = get_object_or_404(Tobacco, pk=edit_cigarette_id)
+    context = {'tobacco_type' : tobacco_type, 'edit_cigarette' : edit_cigarette, 'mode' : mode}
+    return render(request, 'cigarettes/create_tobacco.html', context)
