@@ -34,12 +34,13 @@ def login(request):
     return render(request, 'accounts/auth_form.html', {'auth_mode': auth_mode})
 
 def logout(request):
-    if request.method == 'POST':
-        auth.logout(request)
-        return redirect('cigarettes:index')
-    return render(request, 'accounts/signup.html')
+    # if request.method == 'POST':
+    auth.logout(request)
+    return redirect('cigarettes:index')
+    # return render(request, 'accounts/signup.html')
 
 def mypage(request, profile_id):
     profile = Profile.objects.get(id = profile_id)
     context = {'profile' : profile}
     return render(request, 'accounts/mypage.html', context)
+
