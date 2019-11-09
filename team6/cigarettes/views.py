@@ -6,7 +6,8 @@ from accounts.models import Profile
 
 # Create your views here.
 def index(request):
-    return render(request, 'cigarettes/index.html')
+    tobacco = Tobacco.objects.all()
+    return render(request, 'cigarettes/index.html', {"tobacco":tobacco})
 
 def detail(request, cigarette_id):
     tobacco = get_object_or_404(Tobacco, pk = cigarette_id)
@@ -15,22 +16,23 @@ def detail(request, cigarette_id):
     foh_dict = {'상':0,'중':0,'하':0}
     score = 0
 
-    for comment in comment_list:
-        score += comment.score 
-        if comment.feel_of_hit == '상':
-            foh_dict['상'] += 1
-        elif comment.feel_of_hit == '중':
-            foh_dict['중'] += 1
-        else:
-            foh_dict['하'] += 1
-    
-    tobacco.score = score / len(comment_list)
+    if not len(comment_list) == 0:
+        for comment in comment_list:
+            score += comment.score 
+            if comment.feel_of_hit == '상':
+                foh_dict['상'] += 1
+            elif comment.feel_of_hit == '중':
+                foh_dict['중'] += 1
+            else:
+                foh_dict['하'] += 1
+        
+        tobacco.score = score / len(comment_list)
 
-    if (foh_dict['상'] > foh_dict['중']) and (foh_dict['상'] > foh_dict['하']):
-        tobacco.feel_of_hit = '상'
-    elif (foh_dict['하'] > foh_dict['중']) and (foh_dict['하'] > foh_dict['상']):
-        tobacco.feel_of_hit = '하'
-    else: tobacco.feel_of_hit = '중'
+        if (foh_dict['상'] > foh_dict['중']) and (foh_dict['상'] > foh_dict['하']):
+            tobacco.feel_of_hit = '상'
+        elif (foh_dict['하'] > foh_dict['중']) and (foh_dict['하'] > foh_dict['상']):
+            tobacco.feel_of_hit = '하'
+        else: tobacco.feel_of_hit = '중'
 
     tobacco.save()
 
@@ -72,7 +74,7 @@ def comment(request, cigarette_id):
         try:
             user = request.user
             profile = Profile.objects.get(user=user)
-            comment.belongsto_user = profile
+            comment.belongs_to_user = profile
             comment.feel_of_hit = request.POST['feel_of_hit']
             comment.score = request.POST['score']
             comment.content = request.POST['content']
@@ -84,9 +86,10 @@ def comment(request, cigarette_id):
         try:
             user = request.user
             profile = Profile.objects.get(user=user)
+            context = {'profile': profile, 'cigarette_id':cigarette_id}
         except: #유저 로그인 안했을 경우
             return redirect('accounts:login')
-        return render(request, 'cigarettes/comment.html')
+        return render(request, 'cigarettes/comment.html', context)
     return redirect('tobacco:detail', cigarette_id)
 
 def new_cigarette(request):
@@ -102,6 +105,7 @@ def create_cigarette(request):
     cigarette.is_local = request.POST.get('is_local')
     cigarette.brand = request.POST.get('brand')
     cigarette.name = request.POST.get('name')
+    cigarette.photo = request.FILES.get('photo')
     cigarette.price = request.POST.get('price')
     cigarette.TAR = request.POST.get('tar')
     cigarette.nicotine = request.POST.get('nicotine')

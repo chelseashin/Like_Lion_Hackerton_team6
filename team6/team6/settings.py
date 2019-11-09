@@ -127,8 +127,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static') #Tons 아래 static 폴더
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 # 각 media 파일에 대한 URL Prefix
 MEDIA_URL = '/'
 
