@@ -1,1 +1,30 @@
-<h1>구름 쪼아</h1>
+<h1>Detail page</h1>
+
+<h2>{{ tobacco.brand }} {{ tobacco.name }}</h2>
+<br>
+가격 : {{ tobacco.price }} <br>
+출시일 : {{ tobacco.rel_date }} <br>
+타격감 : {{ tobacco.feel_of_hit }} <br>
+타르 함량 : {{ tobacco.TAR }} <br>
+니코틴 함량 : {{ tobacco.nicotine }} <br>
+별점 : {{ tobacco.score }} <br>
+좋아요 수 : {{ tobacco.total_like }} <br>
+
+{% if tobacco.is_local %}
+    {% if tobacco.is_local == True %} 국내판매 제품 {% else %} 해외판매 제품 {% endif %} <br>
+    {% if tobacco.is_menthol == True %} 맨솔 유 {% else %} 맨솔 무 {% endif %} <br>
+{% else %}
+    전자담배 종류 : {{ tobacco.c_type }} <br>
+{% endif %}
+
+<h2> Comment </h2>
+{% for comment in comment_list %}
+    작성자 : {{ comment.belongs_to_user.nickname }}<br>
+    타격감 : {{comment.feel_of_hit}}<br>
+    별점 : {{comment.score}}<br>
+    내용 : {{comment.content}}<br>
+    <hr>
+{% endfor %} 
+<a href="{% url 'cigarettes:comment' tobacco.id %}">댓글작성</a>
+<br><br>
+<a href="{% url 'cigarettes:index' %}">Home</a>
