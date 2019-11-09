@@ -1,44 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<style>
+html{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    background-color: orange;
+    
+}
+.container{
+    align-content: center;
+    
+}
+
+.Sign{
+    text-align: center;
+}
+form{
+    margin: 0 auto; 
+    width:250px;
+}
+.Signup{
+    width: 100%;
+    padding: .8em 0 10px .8em;
+    background-color: #28A55F;
+    border: none;
+    color:  black;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 20px;
+    
+
+}
+.lo{
+    width: 100%;
+    padding: .8em 0 10px .8em;
+    background-color: #28A55F;
+    border: none;
+    color:  black;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+.ss{
+    text-align: center;
+}
+
+input{  
+    border: 1px solid #ccc!important;
+    padding: 8px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+</style>
+
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
 </head>
-<body>
 
-    {% ifequal auth_mode 'signup' %}
-
-        <h1>Sign up</h1>
+{% ifequal auth_mode 'signup' %}
+    
+        <h1 class = "Sign">Sign up</h1>
+        <div class="container">
         <form method="POST" action="{% url 'signup' %}">
             {% csrf_token %}
-            Username : 
+            <label class="w3-text"><b>Username : </b></label>
             <br>
             <input type="text" name="username" value="">
             <br>
-            Password:
+            <label class="w3-text"><b>Password : </b></label>
+            
             <br>
             <input type="password" name="password1" value="">
             <br>
-            Confirm Password:
+            <label class="w3-text"><b>Confirm Password : </b></label>
+            
             <br>
             <input type="password" name="password2" value="">
-            <hr>
-            Nickname:
+            <br>
+            <label class="w3-text"><b>Nickname : </b></label>
             <br>
             <input type="text" name="nickname" value="">
             <br>
-            E-mail:
+            <label class="w3-text"><b>E-mail : </b></label>
+            
             <br>
             <input type="text" name="email" value="">
             <br>
-            <input type="submit" value="Signup">
+            
+            <input class = Signup type="submit" value="Signup">
         </form>
-
+        </div>
     {% else %}
 
-        <h1>Login</h1>
+        <h1 class="ss">Login</h1>
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             Username : 
@@ -49,9 +108,9 @@
             <br>
             <input type="password" name="password" value="">
             <br>
-            <input type="submit" value="Login">
+            <input class = lo type="submit" value="Login">
         </form>
+    
 
+   
     {% endifequal %}
-</body>
-</html>
