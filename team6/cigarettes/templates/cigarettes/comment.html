@@ -1,0 +1,22 @@
+<form action="{% url 'cigarettes:comment' cigarette_id%}" method="POST">
+        {% csrf_token %}
+    작성자 : {{profile.nickname}}<br>
+    타격감 <br> 
+    <input type="radio" name="feel_of_hit" value="상">상
+    <input type="radio" name="feel_of_hit" value="중">중
+    <input type="radio" name="feel_of_hit" value="하">하
+    <br>
+    별점<br>
+    <input type="radio" name="score" value=1>1
+    <input type="radio" name="score" value=2>2
+    <input type="radio" name="score" value=3>3
+    <input type="radio" name="score" value=4>4
+    <input type="radio" name="score" value=5>5
+    <br>
+    내용 <br>
+    <input type="text" name="content" value=""> 
+    <br>
+    <br>
+    <input type="submit" value="댓글달기">
+</form>
+

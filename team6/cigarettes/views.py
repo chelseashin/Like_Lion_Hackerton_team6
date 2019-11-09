@@ -74,7 +74,7 @@ def comment(request, cigarette_id):
         try:
             user = request.user
             profile = Profile.objects.get(user=user)
-            comment.belongsto_user = profile
+            comment.belongs_to_user = profile
             comment.feel_of_hit = request.POST['feel_of_hit']
             comment.score = request.POST['score']
             comment.content = request.POST['content']
@@ -86,9 +86,10 @@ def comment(request, cigarette_id):
         try:
             user = request.user
             profile = Profile.objects.get(user=user)
+            context = {'profile': profile, 'cigarette_id':cigarette_id}
         except: #유저 로그인 안했을 경우
             return redirect('accounts:login')
-        return render(request, 'cigarettes/comment.html')
+        return render(request, 'cigarettes/comment.html', context)
     return redirect('tobacco:detail', cigarette_id)
 
 def new_cigarette(request):
