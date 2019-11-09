@@ -38,6 +38,7 @@ class Comment(models.Model):
     content = models.TextField()
 
 class Request(models.Model):
+    is_elec = models.BooleanField(default=False)
     is_added = models.BooleanField(default=False)
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=50)

@@ -1,0 +1,35 @@
+
+<!-- {% ifequal  'signup' %} -->
+<h1>Add Cigarette</h1>
+<form method="POST" action="{% url 'create_cigarette' %}">
+    {% csrf_token %}
+    <br>
+    <input type="radio" name="is_local" value=true>국내판매 제품
+    <input type="radio" name="is_local" value=false>해외판매 제품
+    <br>
+    <input name="brand" type="text" value="브랜드 명">
+    <br>
+    <input name="name" type="text" value="제품 명">
+    <br>
+    <input name="price" type="text" value="가격">
+    <br>
+    <input name="tar" type="text" value="타르 함량">
+    <br>
+    <input name="nicotine" type="text" value="니코틴 함량">
+    <br>
+    <input name="rel_date" type="text" value="출시일">
+    <br>
+    <input type="radio" name="is_menthol"  value=true>맨솔 유
+    <input type="radio" name="is_menthol"  value=false>맨솔 무
+    <br>
+</form>
+
+
+<!-- {% else %} -->
+<h1>Add E-Cigarette</h1>
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    
+</form>
+
+<!-- {% endifequal %} -->
