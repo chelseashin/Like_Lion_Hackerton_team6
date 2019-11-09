@@ -1,6 +1,7 @@
 {% ifequal tobacco_type 'cigarette' %}
     {% ifequal mode 'create' %}
 
+
         <h1>Add Cigarette</h1>
         <form method="POST" action="{% url 'cigarettes:create_cigarette' %}">
             {% csrf_token %}
@@ -56,6 +57,7 @@
 
     {% endifequal %}
 
+
 {% else %}
 
     <h1>Add E-Cigarette</h1>
@@ -69,6 +71,8 @@
         브랜드 명: <input name="brand" type="text" value="">
         <br>
         제품 명: <input name="name" type="text" value="">
+        <br>
+        이미지: <input type="file" class="custom-file-input" accept=".jpg,.jpeg,.png,.gif" name="photo">
         <br>
         가격 : <input name="price" type="text" value="">
         <br>

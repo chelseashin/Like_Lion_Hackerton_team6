@@ -2,6 +2,11 @@
 
 <h2>{{ tobacco.brand }} {{ tobacco.name }}</h2>
 <br>
+{% if tobacco.photo %}
+    <div class="tobacco_photo">
+        <img src="{{ tobacco.photo.url }}">
+    </div>
+{% endif %}
 가격 : {{ tobacco.price }} <br>
 출시일 : {{ tobacco.rel_date }} <br>
 타격감 : {{ tobacco.feel_of_hit }} <br>
