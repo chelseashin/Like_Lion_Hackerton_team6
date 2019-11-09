@@ -1,0 +1,14 @@
+
+
+{% if user.is_authenticated %}
+    <form id="logout" method ="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
+{% else %}
+    <a href="{% url 'signup'%}">Signup</a>
+    <a href="{% url 'login'%}">Login</a>
+{% endif %}
+
+<h1>구름 쪼아</h1>
+
