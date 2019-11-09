@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}        
-<h1>구름 쪼아</h1>
-    {% if user.is_authenticated %}
-        <form id="logout" method ="POST" action="{% url 'accounts:logout' %}">
-            {% csrf_token %}
-            <input type="submit" value="Logout">
-        </form>
-        <p>{{ user.username }}님 반갑습니다</p>
-        <p>E-mail : {{ user.profile.email }}</p>
-        <p>Nickname : {{ user.profile.nickname }}</p>
+<h3>Cigarettes's Index</h3>
+<hr>
+{% if user.is_authenticated %}
+    <p>{{ user.username }}님 반갑습니다</p>
+    <p>E-mail : {{ user.profile.email }}</p>
+    <p>Nickname : {{ user.profile.nickname }}</p>
 
-    {% else %}
-        <a href="{% url 'accounts:signup'%}">Signup</a>
-        <a href="{% url 'accounts:login'%}">Login</a>
-    {% endif %}
+{% else %}
+    <p>로그인해주세요!</p>
+{% endif %}
 
+{% endblock %}
