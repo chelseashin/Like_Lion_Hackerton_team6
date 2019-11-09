@@ -5,6 +5,9 @@ app_name = 'cigarettes'
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('detail/<int:cigarette_id>/',views.detail, name="detail"),
+    path('like/<int:cigarrte_id>/',views.like, name="like"),
+    path('<int:cigarette_id>/comment', views.comment, name="comment"),
     path('newCigarette/', views.new_cigarette, name="new_cigarette"),
     path('newElecCigarette/', views.new_elec_cigarette, name="new_elec_cigarette"),
     path('createCigarette/', views.create_cigarette, name="create_cigarette"),

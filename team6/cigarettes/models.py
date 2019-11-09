@@ -12,7 +12,7 @@ class Tobacco(PolymorphicModel):
     rel_date = models.CharField(max_length=20, blank=True)
     nicotine =  models.FloatField()
     TAR = models.FloatField()
-    feel_of_hit = models.CharField(max_length=10, default='중')
+    feel_of_hit = models.CharField(max_length=10, default='데이터 없음')
     score = models.FloatField(default=0)
     total_like = models.PositiveIntegerField(default=0)
     like_user = models.ManyToManyField(Profile)
@@ -25,7 +25,7 @@ class Tobacco(PolymorphicModel):
 
 class Cigarettes(Tobacco):
     is_local = models.BooleanField()
-    is_menthol = models.BooleanField(default=False)
+    is_menthol = models.BooleanField()
 
 class ElecCigarettes(Tobacco):
     c_type = models.CharField(max_length=20)
@@ -39,7 +39,7 @@ class Comment(models.Model):
     content = models.TextField()
 
 class Request(models.Model):
-    is_elec = models.BooleanField(default=False)
+    is_elec = models.BooleanField()
     is_added = models.BooleanField(default=False)
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
@@ -47,4 +47,3 @@ class Request(models.Model):
     rel_date = models.CharField(max_length=20, blank=True)
     nicotine =  models.FloatField(blank=True)
     TAR = models.FloatField(blank=True)
-    is_menthol = models.BooleanField(blank=True)

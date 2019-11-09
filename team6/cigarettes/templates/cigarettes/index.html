@@ -16,6 +16,13 @@
 
     <h1>구름 쪼아</h1>
 
+    {% for toba in tobacco %}
+    <a href="{% url 'cigarettes:detail' toba.id %}">
+        {{toba.brand}}{{toba.name}}
+        <br>
+    </a>
+    {% endfor %}
+
 {% endblock %}
 
 
