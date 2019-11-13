@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    h1 {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.75rem;
+            font-family: 'Jua', sans-serif;
+        }
+
+    h3, p {
+        font-family: 'Do Hyeon', sans-serif;
+    }
+    a .ciga {
+        font-family: 'Do Hyeon', sans-serif;
+        text-decoration: none !important;
+        color : black;
+    }
+
+    .add_ciga {
+        width: 100px;
+        padding: .8em 0 10px .10em;
+        background-color: #28A55F;
+        border: none;
+        color:  white;
+        cursor: pointer;
+        text-transform: uppercase;
+        margin-top: 20px;
+        text-align: center;
+        font-family: 'Do Hyeon', sans-serif;
+    }
+
+    form {
+        font-family: 'Do Hyeon', sans-serif;
+        font-size: 0.8em;
+    }
+</style>
+<h1>Create Comment<h1>
+<hr>
+<form action="{% url 'cigarettes:comment' cigarette_id%}" method="POST">
+        {% csrf_token %}
+    작성자 : {{profile.nickname}}<br>
+    <hr>
+    타격감 <br> 
+    <input type="radio" name="feel_of_hit" value="상">상
+    <input type="radio" name="feel_of_hit" value="중">중
+    <input type="radio" name="feel_of_hit" value="하">하
+    <br>
+    별점<br>
+    <input type="radio" name="score" value=1>1
+    <input type="radio" name="score" value=2>2
+    <input type="radio" name="score" value=3>3
+    <input type="radio" name="score" value=4>4
+    <input type="radio" name="score" value=5>5
+    <br>
+    내용 <br>
+    <input type="text" name="content" value=""> 
+    <br>
+    <br>
+    <input class="add_ciga" type="submit" value="댓글달기">
+</form>
+{% endblock %}

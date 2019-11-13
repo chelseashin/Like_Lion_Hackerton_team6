@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    h1 {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 1.75rem;
+        font-family: 'Jua', sans-serif;
+    }
+    
+    p {
+        font-family: 'Do Hyeon', sans-serif;
+    }
+
+    form {
+    justify-content: center;
+    font-family: 'Do Hyeon', sans-serif;
+    }
+
+    input[type="text"] {
+    width: 100%;
+    }
+
+    .add_ciga {
+    width: 100%;
+    padding: .8em 0 10px .8em;
+    background-color: #28A55F;
+    border: none;
+    color:  white;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 20px;
+    }
+    </style>
+
+{% ifequal tobacco_type 'cigarette' %}
+    {% ifequal mode 'create' %}
+
+
+        <h1>Add Cigarette</h1>
+        <form method="POST" action="{% url 'cigarettes:create_cigarette' %}">
+            {% csrf_token %}
+            <br>
+            <input type="radio" name="is_local" value=True>국내판매 제품
+            <input type="radio" name="is_local" value=False>해외판매 제품
+            <br>
+            브랜드 명: <input name="brand" type="text" value="">
+            <br>
+            제품 명: <input name="name" type="text" value="">
+            <br>
+            이미지: <input type="file" class="" accept=".jpg,.jpeg,.png,.gif" name="photo">
+            <br>
+            가격 : <input name="price" type="text" value="">
+            <br>
+            타르 함량 : <input name="tar" type="text" value="">
+            <br>
+            니코틴 함량 : <input name="nicotine" type="text" value="">
+            <br>
+            출시일 : <input name="rel_date" type="text" value="">
+            <br>
+            <input type="radio" name="is_menthol"  value=True>맨솔 유
+            <input type="radio" name="is_menthol"  value=False>맨솔 무
+            <br><br>
+            <input class="add_ciga" type="submit" value="연초 추가">
+            <br>
+        </form>
+
+    {% else %}
+        <h1>Update Cigarette</h1>
+        <form method="POST" action="{% url 'cigarettes:update_cigarette' edit_cigarette.id %}">
+            {% csrf_token %}
+            <br>
+            <input type="radio" name="is_local" value=True>국내판매 제품
+            <input type="radio" name="is_local" value=False>해외판매 제품
+            <br>
+            브랜드 명: <input name="brand" type="text" value={{edit_cigarette.brand}}>
+            <br>
+            제품 명: <input name="name" type="text" value={{edit_cigarette.name}}>
+            <br>
+            이미지: <input type="file" class="" accept=".jpg,.jpeg,.png,.gif" name="photo">
+            <br>
+            가격 : <input name="price" type="text" value={{edit_cigarette.price}}>
+            <br>
+            타르 함량 : <input name="tar" type="text" value={{edit_cigarette.TAR}}>
+            <br>
+            니코틴 함량 : <input name="nicotine" type="text" value={{edit_cigarette.nicotine}}>
+            <br>
+            출시일 : <input name="rel_date" type="text" value={{edit_cigarette.rel_date}}>
+            <br>
+            <input type="radio" name="is_menthol"  value=True>맨솔 유
+            <input type="radio" name="is_menthol"  value=False>맨솔 무
+            <br><br>
+            <input class="add_ciga" type="submit" value="연초 추가">
+            <br>
+        </form>
+
+    {% endifequal %}
+
+
+{% else %}
+    {% ifequal mode 'create' %}
+        <h1>Add E-Cigarette</h1>
+        <form method="POST" action="{% url 'cigarettes:create_elec_cigarette' %}">
+            {% csrf_token %}
+            <br>
+            <input type="radio" name="c_type"  value="액상">액상형
+            <input type="radio" name="c_type"  value="궐련">궐련형
+            <input type="radio" name="c_type"  value="카트리지">카트리지형
+            <br>
+            브랜드 명: <input name="brand" type="text" value="">
+            <br>
+            제품 명: <input name="name" type="text" value="">
+            <br>
+            이미지: <input type="file" class="" accept=".jpg,.jpeg,.png,.gif" name="photo">
+            <br>
+            가격 : <input name="price" type="text" value="">
+            <br>
+            타르 함량 : <input name="tar" type="text" value="">
+            <br>
+            니코틴 함량 : <input name="nicotine" type="text" value="">
+            <br>
+            출시일 : <input name="rel_date" type="text" value="">
+            <br><br>
+            <input class="add_ciga" type="submit" value="전자담배 추가">
+            <br>
+        </form>
+    {% else %}
+        <h1>Update E-Cigarette</h1>
+        <form method="POST" action="{% url 'cigarettes:update_elec_cigarette' edit_elec_cigarette.id %}">
+            {% csrf_token %}
+            <br>
+            <input type="radio" name="c_type"  value="액상">액상형
+            <input type="radio" name="c_type"  value="궐련">궐련형
+            <input type="radio" name="c_type"  value="카트리지">카트리지형
+            <br>
+            브랜드 명: <input name="brand" type="text" value={{edit_elec_cigarette.brand}}>
+            <br>
+            제품 명: <input name="name" type="text" value={{edit_elec_cigarette.name}}>
+            <br>
+            이미지: <input type="file" class="" accept=".jpg,.jpeg,.png,.gif" name="photo">
+            <br>
+            가격 : <input name="price" type="text" value={{edit_elec_cigarette.price}}>
+            <br>
+            타르 함량 : <input name="tar" type="text" value={{edit_elec_cigarette.TAR}}>
+            <br>
+            니코틴 함량 : <input name="nicotine" type="text" value={{edit_elec_cigarette.nicotine}}>
+            <br>
+            출시일 : <input name="rel_date" type="text" value={{edit_elec_cigarette.rel_date}}>
+            <br><br>
+            <input class="add_ciga" type="submit" value="전자담배 추가">
+            <br>
+        </form>
+    {% endifequal %}
+
+{% endifequal %}
+
+{% endblock %}

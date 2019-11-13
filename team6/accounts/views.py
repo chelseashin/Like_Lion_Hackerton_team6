@@ -16,7 +16,7 @@ def signup(request):
             profile.save()
 
             auth.login(request, user)
-            return redirect('index')
+            return redirect('cigarettes:index')
     return render(request, 'accounts/auth_form.html', {'auth_mode': auth_mode})
 
     
@@ -28,13 +28,19 @@ def login(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('index')
+            return redirect('cigarettes:index')
         else :
             return render(request, 'accounts/auth_form.html', {'error' : 'username or password is incorrect!'})
     return render(request, 'accounts/auth_form.html', {'auth_mode': auth_mode})
 
 def logout(request):
-    if request.method == 'POST':
-        auth.logout(request)
-        return redirect('index')
-    return render(request, 'accounts/signup.html')
+    # if request.method == 'POST':
+    auth.logout(request)
+    return redirect('cigarettes:index')
+    # return render(request, 'accounts/signup.html')
+
+def mypage(request, profile_id):
+    profile = Profile.objects.get(id = profile_id)
+    context = {'profile' : profile}
+    return render(request, 'accounts/mypage.html', context)
+
